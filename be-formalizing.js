@@ -15,6 +15,21 @@ class BeFormalizing extends BE {
      * @type {BEConfig<BAP, Actions & IEnhancement>}
      */
     static config = {
+        propDefaults: {
+            byob: true,
+            triggerInsertPosition: 'afterbegin',
+            buttonContent: '⚗️'
+        },
+        propInfo: {
+            ...propInfo,
+            trigger: {
+                ro: true
+            }
+        },
+        positractions: [resolved, rejected],
+        compacts:{
+            when_triggerInsertPosition_changes_invoke_addFormalizeBtn: 0
+        },
     };
 
     de = de;
