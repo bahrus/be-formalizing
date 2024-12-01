@@ -80,7 +80,7 @@ export class FormDialog{
      * @param {Event} e 
      */
     handleEvent(e) {
-        const self = this.selfRef.deref();
+        const self = this.#selfRef.deref();
         if(self === undefined) throw 404;
         const {enhancedElement} = self;
         const target = e.target;
