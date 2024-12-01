@@ -33,12 +33,15 @@ export class FormDialog{
                 this.#dialog = dialog;
                 dialog.innerHTML = String.raw `
 <form method="dialog">
-    <select name=method>
-        <option value=GET selected>GET</option>
-        <option value=POST>POST</option>
-        <option value=DELETE>DELETE</option>
-        <option value=PUSH>PUSH</option>
-    </select>
+    <fieldset>
+        <legend>Standard Form Props</legend>
+        <select name=method>
+            <option value=GET selected>GET</option>
+            <option value=POST>POST</option>
+            <option value=DELETE>DELETE</option>
+            <option value=PUSH>PUSH</option>
+        </select>
+    </fieldset>
     <button value="cancel">Cancel</button>
     <button value="default">Apply</button>
 </form>
