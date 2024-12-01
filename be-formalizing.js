@@ -3,8 +3,9 @@ import { resolved, rejected, propInfo} from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
 import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
 
+
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
-/** @import {Actions, PAP, AllProps, AP, BAP, ITyper} from './ts-refs/be-formalizing/types.d.ts' */;
+/** @import {Actions, PAP, AllProps, AP, BAP, ITyper, IFormDialog} from './ts-refs/be-formalizing/types.d.ts' */;
 
 /**
  * @implements {Actions}
@@ -36,6 +37,9 @@ class BeFormalizing extends BE {
                 ifNoneOf: ['byob']
             }
         },
+        handlers:{
+            trigger_to_openDialog_on: 'click'
+        }
     };
 
     de = de;
@@ -77,6 +81,23 @@ class BeFormalizing extends BE {
         if(triggerEl === undefined) return;
         //TODO: use trusted types
         triggerEl.textContent = buttonContent;
+    }
+
+    /**
+     * @type {IFormDialog}
+     */
+    #formDialog;
+
+    /**
+     * 
+     * @param {BAP} self 
+     */
+    async openDialog(self){
+        if(this.#formDialog === undefined){
+            const {FormDialog} = await import('./FormDialog.js');
+            this.#formDialog = new FormDialog(self);
+        }
+        this.#formDialog.openDialog();
     }
 }
 
