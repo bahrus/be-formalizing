@@ -1,11 +1,13 @@
+// @ts-check
 /** @import {Actions, PAP, AllProps, AP, BAP, ITyper, IFormDialog} from './ts-refs/be-formalizing/types.d.ts' */;
 
 /**
  * @implements {IFormDialog}
+ * @implements {EventListenerObject}
  */
 export class FormDialog{
     /**
-     * @type {BAP}
+     * @type {WeakRef<BAP>}
      */
     selfRef;
 
@@ -37,17 +39,34 @@ export class FormDialog{
         <option value=DELETE>DELETE</option>
         <option value=PUSH>PUSH</option>
     </select>
+    <button value="cancel">Cancel</button>
+    <button value="default">Apply</button>
 </form>
                 `; 
-                dialog.querySelector('[value="default"]')?.addEventListener('click', e => {
-                    this.applyDialog(e);
-                }, { signal: this.#dialogAC.signal });
+                dialog.querySelector('[value="default"]')?.addEventListener('click', this, { signal: this.#dialogAC.signal });
                 document.body.appendChild(dialog);         
             }else{
                 this.#dialog = globalThis[guid];
             }
         }
         this.#dialog.showModal();
+    }
+
+    /**
+     * 
+     * @param {Event} e 
+     */
+    handleEvent(e) {
+        const self = this.selfRef.deref();
+        if(self === undefined) throw 404;
+        const {enhancedElement} = self;
+        const target = e.target;
+        if(!(target instanceof HTMLButtonElement )) return;
+        const dialog = target.closest('dialog');
+        if(dialog === null) throw 404;
+        const methodSelector = /** @type {HTMLSelectElement | null} */ (dialog.querySelector('select[name="method"]'));
+        if(methodSelector === null) throw 404;
+        enhancedElement.method = methodSelector.value;
     }
 }
 
