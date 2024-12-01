@@ -10,7 +10,7 @@ import {dispatchEvent as de} from 'trans-render/positractions/dispatchEvent.js';
  * @implements {Actions}
  * 
  */
-class BeTyped extends BE {
+class BeFormalizing extends BE {
         /**
      * @type {BEConfig<BAP, Actions & IEnhancement>}
      */
@@ -29,3 +29,6 @@ class BeTyped extends BE {
         });
     }
 }
+
+await BeFormalizing.bootUp();
+export { BeFormalizing }
