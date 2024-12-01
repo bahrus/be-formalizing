@@ -30,6 +30,12 @@ class BeFormalizing extends BE {
         compacts:{
             when_triggerInsertPosition_changes_invoke_addFormalizeBtn: 0
         },
+        actions:{
+            setBtnContent: {
+                ifAllOf: ['buttonContent'],
+                ifNoneOf: ['byob']
+            }
+        },
     };
 
     de = de;
@@ -59,6 +65,18 @@ class BeFormalizing extends BE {
             byob
         });
 
+    }
+
+    /**
+     * 
+     * @param {BAP} self 
+     */
+    setBtnContent(self){
+        const {buttonContent, trigger} = self;
+        const triggerEl = trigger.deref();
+        if(triggerEl === undefined) return;
+        //TODO: use trusted types
+        triggerEl.textContent = buttonContent;
     }
 }
 
