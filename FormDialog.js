@@ -9,14 +9,14 @@ export class FormDialog{
     /**
      * @type {WeakRef<BAP>}
      */
-    selfRef;
+    #selfRef;
 
     /**
      * 
      * @param {BAP} self 
      */
     constructor(self){
-        this.selfRef = new WeakRef(self);
+        this.#selfRef = new WeakRef(self);
     }
 
     /**
@@ -42,7 +42,20 @@ export class FormDialog{
     <button value="cancel">Cancel</button>
     <button value="default">Apply</button>
 </form>
-                `; 
+<style>
+    #${guid} {
+        label,select {
+            display:block;
+        }
+
+        
+    }
+</style>
+                `;
+                const self = this.#selfRef.deref();
+                if(self === undefined) throw 404;
+                const {enhancedElement} = self; 
+                this.#methodSelector(dialog).value = enhancedElement.method.toUpperCase() || 'GET';
                 dialog.querySelector('[value="default"]')?.addEventListener('click', this, { signal: this.#dialogAC.signal });
                 document.body.appendChild(dialog);         
             }else{
@@ -50,6 +63,16 @@ export class FormDialog{
             }
         }
         this.#dialog.showModal();
+    }
+
+    /**
+     * 
+     * @param {HTMLDialogElement} dialog 
+     */
+    #methodSelector(dialog){
+        const methodSelector = /** @type {HTMLSelectElement | null} */ (dialog.querySelector('select[name="method"]'));
+        if(methodSelector === null) throw 404;
+        return methodSelector;
     }
 
     /**
@@ -64,9 +87,7 @@ export class FormDialog{
         if(!(target instanceof HTMLButtonElement )) return;
         const dialog = target.closest('dialog');
         if(dialog === null) throw 404;
-        const methodSelector = /** @type {HTMLSelectElement | null} */ (dialog.querySelector('select[name="method"]'));
-        if(methodSelector === null) throw 404;
-        enhancedElement.method = methodSelector.value;
+        enhancedElement.method = this.#methodSelector(dialog).value;
     }
 }
 
