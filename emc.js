@@ -8,7 +8,7 @@ import { MountObserver } from 'mount-observer/MountObserver.js';
  * @type {EMC<any, AP>}
  */
 export const emc = {
-    enhancedElementMatches: 'label',
+    enhancedElementMatches: 'form',
     base: 'be-formalizing',
     enhPropKey: 'beFormalizing',
     map:  {
