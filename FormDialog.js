@@ -35,12 +35,28 @@ export class FormDialog{
 <form method="dialog">
     <fieldset>
         <legend>Standard Form Props</legend>
-        <select name=method>
-            <option value=GET selected>GET</option>
-            <option value=POST>POST</option>
-            <option value=DELETE>DELETE</option>
-            <option value=PUSH>PUSH</option>
-        </select>
+        <label>
+            Method:
+            <select name=method>
+                <option value=GET selected>GET</option>
+                <option value=POST>POST</option>
+                <option value=DELETE>DELETE</option>
+                <option value=PUSH>PUSH</option>
+            </select>
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>BeReformable Props</legend>
+        <label>
+            Base Attribute:
+            <select>
+                <option value="be-reformable" selected>be-reformable</option>
+                <option value="🍺">🍺</option>
+            </select>
+        <label>
+            Path: 
+            <input name=path>
+        </label>
     </fieldset>
     <button value="cancel">Cancel</button>
     <button value="default">Apply</button>
